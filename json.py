@@ -9,11 +9,12 @@ header = """   _____    _     _
   
 #Json raw api
 url = "https://highland-bypasses.000webhostapp.com/json-raw/api?value="
+urledit = "https://highland-bypasses.000webhostapp.com/json-raw/api"
 
 def body():
   print(header)
   print("\n  " + 40 * "=")
-  print("\n  (1) Simpan dari text\n  (2) Simpan dari file")
+  print("\n  (1) Simpan dari text\n  (2) Simpan dari file\n  (3) Edit file")
   pilih()
   
 #Cara menyimpan
@@ -24,9 +25,11 @@ def pilih():
     simpan_text()
   elif cara_menyimpan == "2":
     simpan_file()
+  elif cara_menyimpan == "3":
+    edit_file()
   else:
     print("  Pilihan tidak ada")
-    time.sleep(0.5)
+    time.sleep(1.0)
     os.system("clear")
     body()
   
@@ -46,9 +49,20 @@ def simpan_file():
   baca_file_json = buka_file_json.read()
   try:
     req = requests.get(url + baca_file_json.replace(" ", "%20").replace("\n", "%0A"))
-    print("  Hasil : https://highland-bypassess.000webhostapp.com/json-raw/api/" + req.text)
+    print("  Hasil : https://highland-bypasses.000webhostapp.com/json-raw/api/" + req.text)
     buka_file_json.close()
   except:
     print("  Gagal menyimpan")
+
+def edit_file():
+  id_json = input("\n  Masukkan id file : ")
+  req = requests.get(urledit + "/" + id_json + "/index.json").text
+  print("\n  File : " + req)
+  edit_json = input("  Edit file (Ketik Ulang) : ")
+  try:
+    req = requests.get(urledit + "/edit.php?value=" + edit_json.replace(" ", "%20").replace("\n", "%0A") + "&id=" + str(id_json))
+    print("  Hasil : https://highland-bypasses.000webhostapp.com/json-raw/api/" + str(id_json))
+  except :
+    print("  Gagal mengedit")
   
 body()
