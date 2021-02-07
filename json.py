@@ -55,17 +55,45 @@ def simpan_file():
     print("  Gagal menyimpan")
 
 def edit_file():
+  global id_json
   id_json = input("\n  Masukkan id file : ")
   try:
     reqii = requests.get(urledit + "/" + str(id_json) + "/index.json")
     print("\n  File : " + reqii.text)
   except:
     print("  Error")
+  print("\n  (1) Edit dari text\n  (2) Edit dari file")
+  pilihedit()
+  
+def pilihedit():
+  pilihedit = input("\n  Pilih cara mengedit : ")
+  
+  if pilihedit == "1":
+    edit_text()
+  elif pilihedit == "2":
+    edit_filef()
+  else:
+    print("  Pilihan tidak ada")
+    time.sleep(1.0)
+    pilihedit()
+    
+def edit_text():
   edit_json = input("  Edit file (Ketik Ulang) : ")
   try:
-    reqiii = requests.get(str(urledit) + "/edit.php?value=" + str(edit_json.replace(" ", "%20").replace("\\n", "%0A")) + "&id=" + str(id_json))
+    reqiii = requests.get("https://highland-bypasses.000webhostapp.com/json-raw/api/edit.php?value=" + edit_json.replace(" ", "%20").replace("\\n", "%0A") + "&id=" + str(id_json))
     print("  Hasil : https://highland-bypasses.000webhostapp.com/json-raw/api/" + str(id_json))
   except :
     print("  Gagal mengedit")
-  
+    
+def edit_filef():
+  file_edit_json = input("  Masukkan file json : ")
+  buka_edit_json = open(file_edit_json, "r")
+  baca_edit_json = bula_file_json.read()
+  try:
+    reqiii = requests.get("https://highland-bypasses.000webhostapp.com/json-raw/api/edit.php?value=" + baca_edit_json.replace(" ", "%20").replace("\n", "%0A") + "&id=" + str(id_json))
+    print("  Hasil : https://highland-bypasses.000webhostapp.com/json-raw/api/" + str(id_json))
+    buka_edit_json.close()
+  except :
+    print("  Gagal mengedit")
+    
 body()
