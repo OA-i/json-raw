@@ -35,7 +35,7 @@ def simpan_text():
   text_json = input("\n  Masukkan text json : ")
   try:
     req = requests.get(url + text_json.replace(" ", "%20").replace("\\n", "%0A"))
-    print("  Hasil : https://highland-bypassess.000webhostapp.com/json-raw/api/" + req.text)
+    print("  Hasil : https://highland-bypasses.000webhostapp.com/json-raw/api/" + req.text)
   except:
     print("  Gagal menyimpan")
     
