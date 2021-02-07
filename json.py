@@ -56,11 +56,11 @@ def simpan_file():
 
 def edit_file():
   id_json = input("\n  Masukkan id file : ")
-  req = requests.get(urledit + "/" + id_json + "/index.json").text
-  print("\n  File : " + req)
+  reqii = requests.get(urledit + "/" + str(id_json) + "/index.json").text
+  print("\n  File : " + reqii)
   edit_json = input("  Edit file (Ketik Ulang) : ")
   try:
-    req = requests.get(urledit + "/edit.php?value=" + edit_json.replace(" ", "%20").replace("\n", "%0A") + "&id=" + str(id_json))
+    reqiii = requests.get(urledit + "/edit.php?value=" + edit_json.replace(" ", "%20").replace("\n", "%0A") + "&id=" + str(id_json))
     print("  Hasil : https://highland-bypasses.000webhostapp.com/json-raw/api/" + str(id_json))
   except :
     print("  Gagal mengedit")
